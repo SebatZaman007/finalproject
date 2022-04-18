@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->string('billuser_id');
+            // $table->string('billuser_id');
             $table->string('billuser_name');
             $table->string('billuser_address');
             $table->string('billuser_phone');

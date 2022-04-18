@@ -11,3 +11,22 @@
  <!-- Google Map -->
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
  <!-- End Google Map -->
+
+ <script>
+     $(document).ready(function(){
+        $("#billtoship").click(function(){
+            if($('#billtoship').is(':checked')){
+                $('#shipping_name').val($('#billuser_name').val());
+                $('#shipping_address').val($('#billuser_address').val());
+                $('#shipping_phone').val($('#billuser_phone').val());
+                $('#shipping_email').val($('#billuser_email').val());
+
+            } else {
+                $('#shipping_name').val("");
+                $('#shipping_address').val("");
+                $('#shipping_phone').val("");
+                $('#shipping_email').val("");
+            }
+        });
+     });
+ </script>

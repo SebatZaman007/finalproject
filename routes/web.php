@@ -30,9 +30,12 @@ Route::get('/show-cart',[HomeController::class,'showCart'])->name('show.cart'); 
 Route::get('/cart-delete/{id}',[HomeController::class,'deleteCart'])->name('cart.delete'); //for delete cart
 Route::post('/confirm-order',[HomeController::class,'confirmOrder'])->name('confirm.order'); //for confirm-order
 Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout'); //for checkout
-Route::match(['get', 'post'], '/checkout',HomeController::class,'checkout'
+// Route::match(['get', 'post'], '/checkout',HomeController::class,'checkout'
 
-)->name('checkout');  //for checkout
+// )->name('checkout');
+  //for checkout
+  Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout'); //for delete cart
+Route::post('/bill-store',[HomeController::class,'billStore'])->name('bill.store');
 
 //*****************************************//
 

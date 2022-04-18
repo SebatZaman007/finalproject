@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\About;
 use App\Models\Bannerimage;
+use App\Models\Bill;
 use App\Models\Cart;
 use App\Models\Client;
 use App\Models\Order;
@@ -167,8 +168,27 @@ class HomeController extends Controller
         $user_details=User::find($user_id);
         $user=auth()->user();
         $count=Cart::where('phone',$user->phone)->count();
-       
+
 
         return view('frontend.pages.checkout.checkout',compact('user_details','count'));
+    }
+
+    public function billStore(Request $request){
+        $user_id=Auth::user()->id;
+        $user_details=User::find($user_id);
+        $user=auth()->user();
+        $count=Cart::where('phone',$user->phone)->count();
+
+        Bill::create([
+            // 'billuser_id'=>$user_details->billuser_id,
+            'billuser_name'=>$request->billuser_name,
+            'billuser_address'=>$request->billuser_address,
+            'billuser_phone'=>$request->billuser_phone,
+            'billuser_email'=>$request->billuser_email,
+        ]);
+
+        return redirect()->back();
+
+
     }
 }
