@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Bannerimage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BannerController;
@@ -7,8 +10,6 @@ use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Frontend\HomeController;
-use App\Models\Bannerimage;
-use Illuminate\Support\Facades\Route;
 
 
 
@@ -26,7 +27,7 @@ Route::get('/contact',[HomeController::class,'contact'])->name('contact'); //for
 
 
 Route::post('add-cart/{id}',[HomeController::class,'addCart'])->name('add.cart'); //add-cart
-Route::get('/show-cart',[HomeController::class,'showCart'])->name('show.cart'); //for show cart
+Route::get('/show-cart',[HomeController::class,'showCart'])->name('show.cart')->middleware('verified'); //for show cart
 Route::get('/cart-delete/{id}',[HomeController::class,'deleteCart'])->name('cart.delete'); //for delete cart
 Route::post('/confirm-order',[HomeController::class,'confirmOrder'])->name('confirm.order'); //for confirm-order
 Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout'); //for checkout
@@ -88,6 +89,8 @@ Route::get('/product-delete/{id}',[ProductController::class,'productDelete'])->n
 
 //*****************************************//
 
+//****************jet_stream**************** */
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -97,3 +100,10 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+//******************************** */
+
+//************email_varification********* */
+
+Auth::routes(['verify'=>true]);
