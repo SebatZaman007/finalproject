@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
             // $table->string('billuser_id');
-            $table->string('billuser_name');
-            $table->string('billuser_address');
-            $table->string('billuser_phone');
-            $table->string('billuser_email');
+            $table->string('billuser_name')->nullable();
+            $table->string('billuser_address')->nullable();
+            $table->string('billuser_phone')->nullable();
+            $table->string('billuser_email')->nullable();
             $table->timestamps();
         });
     }

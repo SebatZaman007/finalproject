@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -27,7 +28,7 @@ Route::get('/contact',[HomeController::class,'contact'])->name('contact'); //for
 
 
 Route::post('add-cart/{id}',[HomeController::class,'addCart'])->name('add.cart'); //add-cart
-Route::get('/show-cart',[HomeController::class,'showCart'])->name('show.cart')->middleware('verified'); //for show cart
+Route::get('/show-cart',[HomeController::class,'showCart'])->name('show.cart'); //for show cart
 Route::get('/cart-delete/{id}',[HomeController::class,'deleteCart'])->name('cart.delete'); //for delete cart
 Route::post('/confirm-order',[HomeController::class,'confirmOrder'])->name('confirm.order'); //for confirm-order
 Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout'); //for checkout
@@ -87,6 +88,10 @@ Route::post('/product-update',[ProductController::class,'productUpdate'])->name(
 Route::get('/product-delete/{id}',[ProductController::class,'productDelete'])->name('product.delete');
 
 
+//for order
+Route::get('/order-index',[OrderController::class,'orderIndex'])->name('order.index');
+
+
 //*****************************************//
 
 //****************jet_stream**************** */
@@ -106,4 +111,11 @@ Route::middleware([
 
 //************email_varification********* */
 
+
+
 Auth::routes(['verify'=>true]);
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
