@@ -7,7 +7,8 @@
       <tr>
         <th scope="col">Product Name</th>
         <th scope="col">Quantity</th>
-        <th scope="col">Price</th>
+        <th scope="col">Product Price</th>
+        <th scope="col">Sub Total Price</th>
         <th scope="col">Action</th>
 
       </tr>
@@ -30,6 +31,9 @@
             </td>
             <td>{{$carts->price}}
                 <input type="text" name="price[]" value="{{$carts->price}}" hidden>
+            </td>
+            <td>
+                {{$carts->quantity * $carts->price}}
             </td>
             <td>
                 <a class="btn btn-danger" href="{{route('cart.delete',$carts->id)}}">Delete</a>

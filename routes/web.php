@@ -24,6 +24,7 @@ Route::get('/redirect',[HomeController::class,'redirect'])->name('redirect');
 Route::get('/',[HomeController::class,'index'])->name('index'); //for home page
 Route::get('/about',[HomeController::class,'about'])->name('about'); //for about page
 Route::get('/contact',[HomeController::class,'contact'])->name('contact'); //for contact page
+Route::get('/product',[HomeController::class,'product'])->name('product'); //for contact page
 
 
 

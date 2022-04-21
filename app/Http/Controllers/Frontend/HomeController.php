@@ -198,4 +198,27 @@ class HomeController extends Controller
             $count=Cart::where('phone',$user->phone)->count();
         return view('frontend.product.confirmorder',compact('cart','banner','count'));
     }
+
+    public function product(){
+        if(Auth::id()){
+
+            $user=auth()->user();
+            $count=Cart::where('phone',$user->phone)->count();
+
+            $banner=Bannerimage::latest()->first();
+            $about=About::latest()->first();
+            $client=Client::latest()->get();
+            $product=Product::get()->all();
+            return view('frontend.pages.product.product',compact('banner','about','client','product','count'));
+        }
+
+        else{
+
+            $banner=Bannerimage::latest()->first();
+            $about=About::latest()->first();
+            $client=Client::latest()->get();
+            $product=Product::get()->all();
+            return view('frontend.pages.product.product',compact('banner','about','client','product'));
+        }
+    }
 }
