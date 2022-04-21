@@ -188,7 +188,14 @@ class HomeController extends Controller
         ]);
 
         return redirect()->back();
+    }
 
-
+    public function finalOrder(){
+        $user=auth()->user();
+        $cart=Cart::where('phone',$user->phone)->get();
+            $count=Cart::where('phone',$user->phone)->count();
+            $banner=Bannerimage::latest()->first();
+            $count=Cart::where('phone',$user->phone)->count();
+        return view('frontend.product.confirmorder',compact('cart','banner','count'));
     }
 }

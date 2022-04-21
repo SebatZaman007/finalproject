@@ -61,8 +61,8 @@
                     <input type="email" class="form-control" name="shipping_email" id="shipping_email" placeholder="Email" >
                   </div>
 
-                  <button type="submit" class="btn btn-primary me-2">Submit</button>
-
+                  <button type="submit"  class="btn btn-primary me-2">Submit</button>
+                  <a href="{{route('final.order')}}" class="btn btn-success">Order Proceed</a>
                 </form>
               </div>
             </div>

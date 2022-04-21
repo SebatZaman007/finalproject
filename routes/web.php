@@ -32,6 +32,7 @@ Route::get('/show-cart',[HomeController::class,'showCart'])->name('show.cart'); 
 Route::get('/cart-delete/{id}',[HomeController::class,'deleteCart'])->name('cart.delete'); //for delete cart
 Route::post('/confirm-order',[HomeController::class,'confirmOrder'])->name('confirm.order'); //for confirm-order
 Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout'); //for checkout
+Route::get('/final-order',[HomeController::class,'finalOrder'])->name('final.order'); //for checkout
 // Route::match(['get', 'post'], '/checkout',HomeController::class,'checkout'
 
 // )->name('checkout');
@@ -89,7 +90,8 @@ Route::get('/product-delete/{id}',[ProductController::class,'productDelete'])->n
 
 
 //for order
-Route::get('/order-index',[OrderController::class,'orderIndex'])->name('order.index');
+Route::get('/order-index',[OrderController::class,'orderIndex'])->name('order.index'); //show-order
+Route::get('/update-status/{id}',[OrderController::class,'updateStatus'])->name('update.status'); //show-order
 
 
 //*****************************************//
