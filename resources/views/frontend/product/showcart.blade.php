@@ -50,7 +50,7 @@
   </table>
    <h2> <b> Total Price : ${{$total}} </b> </h2><br>
    <a href="{{route('checkout')}}" class="btn btn-warning" style="width: 120px">Check Out</a><br>
-  <button class="btn btn-success" style="width: 130px">Confirm Order</button>
+  {{-- <button class="btn btn-success" style="width: 130px">Confirm Order</button> --}}
 </form>
 
 @endsection

@@ -20,8 +20,9 @@
                     <th>Phone </th>
                     <th>Address </th>
                     <th>Product Title </th>
-                    <th>Price</th>
                     <th>Quantity</th>
+                    <th>Product Price</th>
+                    <th>Total Price</th>
                     <th>Status</th>
                     <th>Action</th>
 
@@ -46,7 +47,10 @@
                             {{$orderitem->quantity}}
                         </td>
                         <td>
-                            {{$orderitem->price}}
+                            {{$orderitem->product_price}}
+                        </td>
+                        <td>
+                            {{$orderitem->product_price*$orderitem->quantity}}
                         </td>
                         <td>
                             {{$orderitem->status}}

@@ -33,9 +33,8 @@
                 <input type="text" name="price[]" value="{{$carts->price}}" hidden>
             </td>
             <td>
-
                     {{$carts->quantity * $carts->price}}
-              
+
             </td>
             <td>
                 <a class="btn btn-danger" href="{{route('cart.delete',$carts->id)}}">Delete</a>

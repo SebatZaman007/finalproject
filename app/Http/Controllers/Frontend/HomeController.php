@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\Client;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Riceveorder;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -146,10 +147,11 @@ class HomeController extends Controller
         $address=$user->address;
 
         foreach ($request->productname as $key=>$productname) {
-
-            $order=new Order();
+           
+            $order=new Riceveorder();
             $order->product_name=$request->productname[$key];
-            $order->price=$request->price[$key];
+            $order->product_price=$request->price[$key];
+            $order->total_price=$request->price[$key];
             $order->quantity=$request->quantity[$key];
             $order->name=$name;
             $order->phone=$phone;
@@ -159,7 +161,7 @@ class HomeController extends Controller
 
           }
           DB::table('carts')->where('phone',$phone)->delete();
-          return redirect()->back();
+          return redirect()->route('payment');
 
     }
 
@@ -220,5 +222,11 @@ class HomeController extends Controller
             $product=Product::get()->all();
             return view('frontend.pages.product.product',compact('banner','about','client','product'));
         }
+
+
+    }
+
+    public function payment(){
+        return view('frontend.sslcommerz.exampleEasycheckout');
     }
 }

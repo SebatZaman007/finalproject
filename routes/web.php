@@ -1,17 +1,17 @@
 <?php
 
-use App\Models\Bannerimage;
 use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ClientController;
-use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Frontend\HomeController;
-
+use App\Http\Controllers\SslCommerzPaymentController;
 
 
 // Route::get('/', function () {
@@ -24,7 +24,7 @@ Route::get('/redirect',[HomeController::class,'redirect'])->name('redirect');
 Route::get('/',[HomeController::class,'index'])->name('index'); //for home page
 Route::get('/about',[HomeController::class,'about'])->name('about'); //for about page
 Route::get('/contact',[HomeController::class,'contact'])->name('contact'); //for contact page
-Route::get('/product',[HomeController::class,'product'])->name('product'); //for contact page
+Route::get('/product',[HomeController::class,'product'])->name('product'); //for product page
 
 
 
@@ -38,8 +38,9 @@ Route::get('/final-order',[HomeController::class,'finalOrder'])->name('final.ord
 
 // )->name('checkout');
   //for checkout
-  Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout'); //for delete cart
+//   Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout'); //for delete cart
 Route::post('/bill-store',[HomeController::class,'billStore'])->name('bill.store');
+Route::get('/payment',[HomeController::class,'payment'])->name('payment');
 
 //*****************************************//
 
@@ -122,3 +123,18 @@ Auth::routes(['verify'=>true]);
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
+
+
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
