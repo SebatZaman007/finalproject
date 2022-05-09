@@ -20,213 +20,211 @@ use function Ramsey\Uuid\v1;
 
 class HomeController extends Controller
 {
-    public function index(){
-        if(Auth::id()){
+    public function index()
+    {
+        if (Auth::id()) {
             return redirect('redirect');
+        } else {
+
+            $banner = Bannerimage::latest()->first();
+            $about = About::latest()->first();
+            $client = Client::latest()->get();
+            $product = Product::get()->all();
+            return view('frontend.master', compact('banner', 'about', 'client', 'product'));
         }
-
-        else{
-
-            $banner=Bannerimage::latest()->first();
-            $about=About::latest()->first();
-            $client=Client::latest()->get();
-            $product=Product::get()->all();
-            return view('frontend.master',compact('banner','about','client','product'));
-        }
-
-
     }
 
-    public function redirect(){
+    public function redirect()
+    {
 
-        $usertype=Auth::user()->user_type;
-        if($usertype=='1'){
+        $usertype = Auth::user()->user_type;
+        if ($usertype == '1') {
             return view('Admin.master');
-
-        }
-        else{
+        } else {
             //cart count
-            $user=auth()->user();
-            $count=Cart::where('phone',$user->phone)->count();
+            $user = auth()->user();
+            $count = Cart::where('phone', $user->phone)->count();
             //
-            $banner=Bannerimage::latest()->first();
-            $about=About::latest()->first();
-            $client=Client::latest()->get();
-            $product=Product::get()->all();
-            return view('frontend.master',compact('banner','about','client','product','count'));
+            $banner = Bannerimage::latest()->first();
+            $about = About::latest()->first();
+            $client = Client::latest()->get();
+            $product = Product::get()->all();
+            return view('frontend.master', compact('banner', 'about', 'client', 'product', 'count'));
         }
     }
 
-    public function about(){
-        if(Auth::id()){
+    public function about()
+    {
+        if (Auth::id()) {
 
-            $user=auth()->user();
-            $count=Cart::where('phone',$user->phone)->count();
+            $user = auth()->user();
+            $count = Cart::where('phone', $user->phone)->count();
 
-            $banner=Bannerimage::latest()->first();
-            $about=About::latest()->first();
-            $client=Client::latest()->get();
-            $product=Product::get()->all();
-            return view('frontend.pages.about.about',compact('banner','about','client','product','count'));
-        }
+            $banner = Bannerimage::latest()->first();
+            $about = About::latest()->first();
+            $client = Client::latest()->get();
+            $product = Product::get()->all();
+            return view('frontend.pages.about.about', compact('banner', 'about', 'client', 'product', 'count'));
+        } else {
 
-        else{
-
-            $banner=Bannerimage::latest()->first();
-            $about=About::latest()->first();
-            $client=Client::latest()->get();
-            $product=Product::get()->all();
-            return view('frontend.pages.about.about',compact('banner','about','client','product'));
-        }
-
-    }
-
-    public function contact(){
-        if(Auth::id()){
-
-            $user=auth()->user();
-            $count=Cart::where('phone',$user->phone)->count();
-
-            $banner=Bannerimage::latest()->first();
-            $about=About::latest()->first();
-            $client=Client::latest()->get();
-            $product=Product::get()->all();
-            return view('frontend.pages.contact.contact',compact('banner','about','client','product','count'));
-        }
-
-        else{
-
-            $banner=Bannerimage::latest()->first();
-            $about=About::latest()->first();
-            $client=Client::latest()->get();
-            $product=Product::get()->all();
-            return view('frontend.pages.contact.contact',compact('banner','about','client','product'));
+            $banner = Bannerimage::latest()->first();
+            $about = About::latest()->first();
+            $client = Client::latest()->get();
+            $product = Product::get()->all();
+            return view('frontend.pages.about.about', compact('banner', 'about', 'client', 'product'));
         }
     }
 
-    public function addCart(Request $request,$id){
+    public function contact()
+    {
+        if (Auth::id()) {
 
-        if(Auth::id()){
-            $user=auth()->user();
-            $product=Product::find($id);
+            $user = auth()->user();
+            $count = Cart::where('phone', $user->phone)->count();
 
-            $cart= new Cart;
-            $cart->name=$user->name;
-            $cart->phone=$user->phone;
-            $cart->address=$user->address;
-            $cart->product_title=$product->product_name;
-            $cart->price=$product->product_price;
-            $cart->quantity=$request->quantity;
+            $banner = Bannerimage::latest()->first();
+            $about = About::latest()->first();
+            $client = Client::latest()->get();
+            $product = Product::get()->all();
+            return view('frontend.pages.contact.contact', compact('banner', 'about', 'client', 'product', 'count'));
+        } else {
+
+            $banner = Bannerimage::latest()->first();
+            $about = About::latest()->first();
+            $client = Client::latest()->get();
+            $product = Product::get()->all();
+            return view('frontend.pages.contact.contact', compact('banner', 'about', 'client', 'product'));
+        }
+    }
+
+    public function addCart(Request $request, $id)
+    {
+
+        if (Auth::id()) {
+            $user = auth()->user();
+            $product = Product::find($id);
+
+            $cart = new Cart;
+            $cart->name = $user->name;
+            $cart->phone = $user->phone;
+            $cart->address = $user->address;
+            $cart->product_title = $product->product_name;
+            $cart->price = $product->product_price;
+            $cart->quantity = $request->quantity;
 
             $cart->save();
             return redirect()->back();
-        }
-        else
-        {
+        } else {
             return redirect('login');
         }
     }
 
-    public function showCart(){
-        $user=auth()->user();
-        $cart=Cart::where('phone',$user->phone)->get();
-            $count=Cart::where('phone',$user->phone)->count();
-            $banner=Bannerimage::latest()->first();
-        return view('frontend.product.showcart',compact('count','banner','cart'));
+    public function showCart()
+    {
+        $user = auth()->user();
+        $cart = Cart::where('phone', $user->phone)->get();
+        $count = Cart::where('phone', $user->phone)->count();
+        $banner = Bannerimage::latest()->first();
+        return view('frontend.product.showcart', compact('count', 'banner', 'cart'));
     }
 
-    public function deleteCart($id){
-        Cart::where('id',$id)->delete();
+    public function deleteCart($id)
+    {
+        Cart::where('id', $id)->delete();
         return redirect()->back();
     }
 
-    public function confirmOrder(Request $request){
-        $user=auth()->user();
-        $name=$user->name;
-        $phone=$user->phone;
-        $address=$user->address;
+    public function confirmOrder(Request $request)
+    {
+        $user = auth()->user();
+        $name = $user->name;
+        $phone = $user->phone;
+        $address = $user->address;
 
-        foreach ($request->productname as $key=>$productname) {
-           
-            $order=new Riceveorder();
-            $order->product_name=$request->productname[$key];
-            $order->product_price=$request->price[$key];
-            $order->total_price=$request->price[$key];
-            $order->quantity=$request->quantity[$key];
-            $order->name=$name;
-            $order->phone=$phone;
-            $order->address=$address;
-            $order->status='not delivered';
+        foreach ($request->productname as $key => $productname) {
+
+            $order = new Riceveorder();
+            $order->product_name = $request->productname[$key];
+            $order->product_price = $request->price[$key];
+            $order->total_price = $request->price[$key] * $request->quantity[$key];
+            $order->quantity = $request->quantity[$key];
+            $order->name = $name;
+            $order->phone = $phone;
+            $order->address = $address;
+            $order->status = 'not delivered';
             $order->save();
-
-          }
-          DB::table('carts')->where('phone',$phone)->delete();
-          return redirect()->route('payment');
-
+        }
+        DB::table('carts')->where('phone', $phone)->delete();
+        return redirect()->route('payment');
     }
 
-    public function checkout(Request $request){
-        $user_id=Auth::user()->id;
-        $user_details=User::find($user_id);
-        $user=auth()->user();
-        $count=Cart::where('phone',$user->phone)->count();
+    public function checkout(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $user_details = User::find($user_id);
+        $user = auth()->user();
+        $count = Cart::where('phone', $user->phone)->count();
 
 
-        return view('frontend.pages.checkout.checkout',compact('user_details','count'));
+        return view('frontend.pages.checkout.checkout', compact('user_details', 'count'));
     }
 
-    public function billStore(Request $request){
-        $user_id=Auth::user()->id;
-        $user_details=User::find($user_id);
-        $user=auth()->user();
-        $count=Cart::where('phone',$user->phone)->count();
+    public function billStore(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $user_details = User::find($user_id);
+        $user = auth()->user();
+        $count = Cart::where('phone', $user->phone)->count();
 
         Bill::create([
             // 'billuser_id'=>$user_details->billuser_id,
-            'billuser_name'=>$request->billuser_name,
-            'billuser_address'=>$request->billuser_address,
-            'billuser_phone'=>$request->billuser_phone,
-            'billuser_email'=>$request->billuser_email,
+            'billuser_name' => $request->billuser_name,
+            'billuser_address' => $request->billuser_address,
+            'billuser_phone' => $request->billuser_phone,
+            'billuser_email' => $request->billuser_email,
         ]);
 
         return redirect()->back();
     }
 
-    public function finalOrder(){
-        $user=auth()->user();
-        $cart=Cart::where('phone',$user->phone)->get();
-            $count=Cart::where('phone',$user->phone)->count();
-            $banner=Bannerimage::latest()->first();
-            $count=Cart::where('phone',$user->phone)->count();
-        return view('frontend.product.confirmorder',compact('cart','banner','count'));
+    public function finalOrder()
+    {
+        $user = auth()->user();
+        $cart = Cart::where('phone', $user->phone)->get();
+        $count = Cart::where('phone', $user->phone)->count();
+        $banner = Bannerimage::latest()->first();
+        $count = Cart::where('phone', $user->phone)->count();
+        return view('frontend.product.confirmorder', compact('cart', 'banner', 'count'));
     }
 
-    public function product(){
-        if(Auth::id()){
+    public function product()
+    {
+        if (Auth::id()) {
 
-            $user=auth()->user();
-            $count=Cart::where('phone',$user->phone)->count();
+            $user = auth()->user();
+            $count = Cart::where('phone', $user->phone)->count();
 
-            $banner=Bannerimage::latest()->first();
-            $about=About::latest()->first();
-            $client=Client::latest()->get();
-            $product=Product::get()->all();
-            return view('frontend.pages.product.product',compact('banner','about','client','product','count'));
+            $banner = Bannerimage::latest()->first();
+            $about = About::latest()->first();
+            $client = Client::latest()->get();
+            $product = Product::get()->all();
+            return view('frontend.pages.product.product', compact('banner', 'about', 'client', 'product', 'count'));
+        } else {
+
+            $banner = Bannerimage::latest()->first();
+            $about = About::latest()->first();
+            $client = Client::latest()->get();
+            $product = Product::get()->all();
+            return view('frontend.pages.product.product', compact('banner', 'about', 'client', 'product'));
         }
-
-        else{
-
-            $banner=Bannerimage::latest()->first();
-            $about=About::latest()->first();
-            $client=Client::latest()->get();
-            $product=Product::get()->all();
-            return view('frontend.pages.product.product',compact('banner','about','client','product'));
-        }
-
-
     }
 
-    public function payment(){
-        return view('frontend.sslcommerz.exampleEasycheckout');
+    public function payment(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $user_details = User::find($user_id);
+        $user = auth()->user();
+        $count = Cart::where('phone', $user->phone)->count();
+        return view('frontend.sslcommerz.exampleEasycheckout',compact('user_details','count'));
     }
 }
