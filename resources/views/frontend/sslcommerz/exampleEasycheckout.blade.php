@@ -70,6 +70,8 @@
                     <strong>1200 TK</strong>
                 </li>
             </ul>
+
+
         </div>
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Billing address</h4>
@@ -77,8 +79,8 @@
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <label for="firstName">Full name</label>
-                        <input type="text" name="customer_name"  class="form-control" id="customer_name" placeholder=""
-                               value="John Doe" required>
+                        <input type="text" name="billuser_name"  class="form-control" id="billuser_name" placeholder=""
+                               value="{{$user_details->name}}" required>
                         <div class="invalid-feedback">
                             Valid customer name is required.
                         </div>
@@ -91,8 +93,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">+88</span>
                         </div>
-                        <input type="text" name="customer_mobile" class="form-control" id="mobile" placeholder="Mobile"
-                               value="01711xxxxxx" required>
+                        <input type="text" name="billuser_phone" class="form-control" id="billuser_phone" placeholder="Mobile"
+                               value="{{$user_details->phone}}" required>
                         <div class="invalid-feedback" style="width: 100%;">
                             Your Mobile number is required.
                         </div>
@@ -101,8 +103,8 @@
 
                 <div class="mb-3">
                     <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                    <input type="email" name="customer_email" class="form-control" id="email"
-                           placeholder="you@example.com" value="you@example.com" required>
+                    <input type="email" name="billuser_email" class="form-control" id="billuser_email"
+                           placeholder="you@example.com" value="{{$user_details->email}}" required>
                     <div class="invalid-feedback">
                         Please enter a valid email address for shipping updates.
                     </div>
@@ -110,19 +112,19 @@
 
                 <div class="mb-3">
                     <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" placeholder="1234 Main St"
-                           value="93 B, New Eskaton Road" required>
+                    <input type="text" class="form-control" id="billuser_address" name="billuser_address" placeholder="1234 Main St"
+                           value="{{$user_details->address}}" required>
                     <div class="invalid-feedback">
                         Please enter your shipping address.
                     </div>
                 </div>
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
                     <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                </div>
+                </div> --}}
 
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-md-5 mb-3">
                         <label for="country">Country</label>
                         <select class="custom-select d-block w-100" id="country" required>
@@ -150,18 +152,18 @@
                             Zip code required.
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <hr class="mb-4">
-                <div class="custom-control custom-checkbox">
+                {{-- <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="same-address">
                     <input type="hidden" value="1200" name="amount" id="total_amount" required/>
                     <label class="custom-control-label" for="same-address">Shipping address is the same as my billing
                         address</label>
-                </div>
-                <div class="custom-control custom-checkbox">
+                </div> --}}
+                {{-- <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="save-info">
                     <label class="custom-control-label" for="save-info">Save this information for next time</label>
-                </div>
+                </div> --}}
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" id="sslczPayBtn"
                         token="if you have any token validation"

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\SslCommerzPaymentController;
 
@@ -90,6 +91,11 @@ Route::get('/product-edit/{id}',[ProductController::class,'productEdit'])->name(
 Route::post('/product-update',[ProductController::class,'productUpdate'])->name('product.update');
 Route::get('/product-delete/{id}',[ProductController::class,'productDelete'])->name('product.delete');
 
+//for user
+
+Route::get('/user-index',[UserController::class,'userIndex'])->name('user.index');
+Route::get('/user-delete/{id}',[UserController::class,'userDelete'])->name('user.delete');
+
 
 //for order
 Route::get('/order-index',[OrderController::class,'orderIndex'])->name('order.index'); //show-order
@@ -117,7 +123,7 @@ Route::middleware([
 
 
 
-Auth::routes(['verify'=>true]);
+// Auth::routes(['verify'=>true]);
 
 // // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 // Route::group(['middleware' => ['auth', 'verified']], function () {

@@ -31,7 +31,7 @@
                         <a class="nav-link" href="{{route('show.cart')}}"> <i class="fa fa-cart-arrow-down" aria-hidden="true">[{{$count}}]</i> </a>
                       </li>
                             <x-app-layout>
-
+                                
                             </x-app-layout>
 
 

@@ -3,16 +3,25 @@
 namespace App\Http\Controllers;
 
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Library\SslCommerz\SslCommerzNotification;
+use Illuminate\Support\Facades\Auth;
 
 class SslCommerzPaymentController extends Controller
 {
 
     public function exampleEasyCheckout()
     {
-        return view('exampleEasycheckout');
+        if(Auth::id()){
+            return redirect();
+        }
+        else{
+
+            return view('exampleEasycheckout');
+        }
+
     }
 
     public function exampleHostedCheckout()
